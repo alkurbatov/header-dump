@@ -1,0 +1,12 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+BreakBeforeBraces: Allman
+ColumnLimit: 120
+IndentWidth: 4
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+RemoveBracesLLVM: true
+InsertNewlineAtEOF: true
+LineEnding: LF
