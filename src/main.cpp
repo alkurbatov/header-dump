@@ -34,6 +34,8 @@ uint32_t readChunkSize(std::ifstream& src)
 
 void readHeaderChunk(std::ifstream& src)
 {
+    std::cout << "RIFF\n";
+    std::cout << "size: " << readChunkSize(src) << '\n';
     std::cout << readString(src, 4) << '\n';
 }
 
@@ -68,6 +70,15 @@ int main(int /* argc */, char** argv)
     // https://www.mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
     std::ifstream src{argv[1], std::ios::binary};
 
+    auto chunkName = readChunkName(src);
+    if (chunkName != "RIFF")
+    {
+        std::cout << "RIFF chunk not found, might be a raw file.\n";
+        return 0;
+    }
+
+    readHeaderChunk(src);
+
     while (true)
     {
         std::cout << '\n';
@@ -77,12 +88,6 @@ int main(int /* argc */, char** argv)
 
         std::cout << "Chunk: " << chunkName << '\n';
         std::cout << "size: " << chunkSize << '\n';
-
-        if (chunkName == "RIFF")
-        {
-            readHeaderChunk(src);
-            continue;
-        }
 
         if (chunkName == "fmt ")
         {
