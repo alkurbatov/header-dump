@@ -1,0 +1,20 @@
+---
+Checks: "*,
+        -abseil-*,
+        -altera-*,
+        -android-*,
+        -cppcoreguidelines-avoid-magic-numbers,
+        -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+        -cppcoreguidelines-pro-type-reinterpret-cast,
+        -fuchsia-*,
+        -google-*,
+        -hicpp-braces-around-statements,
+        -llvm*,
+        -modernize-use-trailing-return-type,
+        -readability-braces-around-statements,
+        -readability-magic-numbers,
+        -zircon-*,
+"
+WarningsAsErrors: '*'
+HeaderFilterRegex: ''
+FormatStyle:     none

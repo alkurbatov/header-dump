@@ -5,7 +5,7 @@
 std::string readString(std::ifstream& src, int size)
 {
     std::string buf(size, '\0');
-    src.read(&buf[0], buf.size());
+    src.read(buf.data(), size);
 
     return buf;
 }
