@@ -19,6 +19,9 @@ T readNumber(std::ifstream& src)
     return buf;
 }
 
+const auto read2BytesInt = readNumber<std::uint16_t>;
+const auto read4BytesInt = readNumber<std::uint32_t>;
+
 std::string readChunkName(std::ifstream& src)
 {
     return readString(src, 4);
@@ -26,7 +29,7 @@ std::string readChunkName(std::ifstream& src)
 
 uint32_t readChunkSize(std::ifstream& src)
 {
-    return readNumber<std::uint32_t>(src);
+    return read4BytesInt(src);
 }
 
 void readHeaderChunk(std::ifstream& src)
@@ -36,21 +39,21 @@ void readHeaderChunk(std::ifstream& src)
 
 void readFormatChunk(std::ifstream& src)
 {
-    auto formatCode = readNumber<std::uint16_t>(src);
+    auto formatCode = read2BytesInt(src);
     std::cout << "format code: " << formatCode << '\n';
-    std::cout << "channels: " << readNumber<std::uint16_t>(src) << '\n';
-    std::cout << "sample rate: " << readNumber<std::uint32_t>(src) << '\n';
-    std::cout << "byte rate: " << readNumber<std::uint32_t>(src) << '\n';
-    std::cout << "block align: " << readNumber<std::uint16_t>(src) << '\n';
-    std::cout << "bit depth: " << readNumber<std::uint16_t>(src) << '\n';
+    std::cout << "channels: " << read2BytesInt(src) << '\n';
+    std::cout << "sample rate: " << read4BytesInt(src) << '\n';
+    std::cout << "byte rate: " << read4BytesInt(src) << '\n';
+    std::cout << "block align: " << read2BytesInt(src) << '\n';
+    std::cout << "bit depth: " << read2BytesInt(src) << '\n';
 
     if (formatCode == 6 || formatCode == 7)  // A-law or (M)u-law
-        std::cout << "extension size: " << readNumber<std::uint16_t>(src) << '\n';
+        std::cout << "extension size: " << read2BytesInt(src) << '\n';
 }
 
 void readFactChunk(std::ifstream& src)
 {
-    std::cout << "sample length: " << readNumber<std::uint32_t>(src) << '\n';
+    std::cout << "sample length: " << read4BytesInt(src) << '\n';
 }
 
 void readListChunk(std::ifstream& src)
