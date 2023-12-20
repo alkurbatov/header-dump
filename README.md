@@ -1,4 +1,7 @@
 # header-dump
+[![GitHub](https://img.shields.io/github/license/alkurbatov/header-dump)](https://github.com/alkurbatov/header-dump/blob/main/LICENSE)
+[![C++20](https://img.shields.io/badge/C%2B%2B-20-green.svg)](https://isocpp.org/std/the-standard)
+
 Tiny utility to dump info from WAVE header.
 
 ## Prerequisites
