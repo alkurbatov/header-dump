@@ -1,7 +1,3 @@
-# GPLv3 license
-#
-# Copyright (c) 2023 Alexander Kurbatov
-
 cmake_minimum_required(VERSION 3.15)
 
 project(header-dump)
