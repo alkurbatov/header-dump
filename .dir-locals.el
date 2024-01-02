@@ -6,4 +6,3 @@
   (flycheck-gcc-language-standard   . "c++20"))
  (c++-ts-mode
   (eval add-hook 'before-save-hook #'format-all-buffer nil 'local)))
-)
