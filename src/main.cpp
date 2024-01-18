@@ -66,8 +66,6 @@ void readListChunk(std::ifstream& src)
 
 int main(int /* argc */, char** argv)
 {
-    // NB (alkurbatov): For more details regarding format of WAVE headers see
-    // https://www.mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
     std::ifstream src{argv[1], std::ios::binary};
 
     auto chunkName = readChunkName(src);
