@@ -3,7 +3,6 @@
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-green.svg)](https://isocpp.org/std/the-standard)
 
 Tiny utility to dump info from WAVE header.
-For more details regarding format of WAVE headers see [this document](https://www.mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html).
 
 ## Prerequisites
 1. Download and install [CMake](https://cmake.org/download/).
@@ -24,6 +23,11 @@ For more details regarding format of WAVE headers see [this document](https://ww
    ```bash
    ./build/bin/header-dump ~/work/testdata/audio-samples/alaw.wav
    ```
+
+## Additional info
+- [WAVE headers format](https://www.mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html)
+- [LIST chunk of a RIFF file](https://www.recordingblogs.com/wiki/list-chunk-of-a-wave-file)
+- [RIFF Tags](https://exiftool.org/TagNames/RIFF.html)
 
 ## License
 Copyright (c) 2023-2024 Alexander Kurbatov

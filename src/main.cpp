@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-std::string readString(std::ifstream& src, int size)
+std::string readString(std::ifstream& src, uint32_t size)
 {
     std::string buf(size, '\0');
     src.read(buf.data(), size);
@@ -19,6 +19,7 @@ T readNumber(std::ifstream& src)
     return buf;
 }
 
+const auto read1ByteInt = readNumber<std::uint8_t>;
 const auto read2BytesInt = readNumber<std::uint16_t>;
 const auto read4BytesInt = readNumber<std::uint32_t>;
 
@@ -58,10 +59,44 @@ void readFactChunk(std::ifstream& src)
     std::cout << "sample length: " << read4BytesInt(src) << '\n';
 }
 
-void readListChunk(std::ifstream& src)
+void readInfoChunk(std::ifstream& src, uint32_t size)
 {
-    std::cout << readString(src, 4) << '\n';
-    std::cout << readString(src, 4) << ": " << readString(src, 18) << '\n';
+    while (size > 0)
+    {
+        auto subChunkName = readChunkName(src);
+        std::cout << "\tSub-chunk ID: " << subChunkName << '\n';
+
+        auto dataSize = readChunkSize(src);
+
+        std::cout << "\tsize: " << dataSize << '\n';
+        std::cout << "\tdata: " << readString(src, dataSize) << '\n';
+        std::cout << '\n';
+
+        size = size - dataSize - 8;
+
+        // NB (a.kurbatov): The data section should be aligned thus
+        // if dataSize is odd we should read out padding byte.
+        if (static_cast<int>(dataSize) % 2 == 1)
+        {
+            read1ByteInt(src);
+            size--;
+        }
+    }
+}
+
+void readListChunk(std::ifstream& src, uint32_t size)
+{
+    auto chunkID = readChunkName(src);
+    std::cout << "List type ID: " << chunkID << '\n';
+
+    if (chunkID != "INFO")
+    {
+        std::cout << "content: Not supported\n";
+        return;
+    }
+
+    std::cout << '\n';
+    readInfoChunk(src, size - 4);
 }
 
 int main(int /* argc */, char** argv)
@@ -101,7 +136,7 @@ int main(int /* argc */, char** argv)
 
         if (chunkName == "LIST")
         {
-            readListChunk(src);
+            readListChunk(src, chunkSize);
             continue;
         }
 
